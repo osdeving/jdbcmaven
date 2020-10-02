@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: br.com.willams.AppTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.115 s - in br.com.willams.AppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.183 s - in br.com.willams.AppTest

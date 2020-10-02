@@ -22,6 +22,7 @@ public class SingleConnection {
             if(connection == null) {
                 Class.forName("org.postgresql.Driver");
                 connection = DriverManager.getConnection(url, user, password);
+                connection.setAutoCommit(false);
                 System.out.println("Conectou com sucesso!");
             }
         }

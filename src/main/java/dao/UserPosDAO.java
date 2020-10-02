@@ -18,15 +18,20 @@ public class UserPosDAO {
 
         try {
             PreparedStatement insert = connection.prepareStatement(sql);
-            insert.setLong(1, 4);
-            insert.setString(2, "willams2");
-            insert.setString(3, "email2@email2.com");
+            insert.setLong(1, userposjava.getId());
+            insert.setString(2, userposjava.getNome());
+            insert.setString(3, userposjava.getEmail());
             insert.execute();
             // dando erro, não pode dar commit quando 'autocommit' está ativo
             // TODO:
             // pesquisar sobre autocommit
-           // connection.commit(); // salva no banco
+            connection.commit(); // salva no banco
         } catch(Exception e) {
+            try {
+                connection.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
             e.printStackTrace();
         }
 

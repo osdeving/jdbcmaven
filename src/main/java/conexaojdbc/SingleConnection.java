@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class SingleConnection {
-    private static String url = "jdbc:mysql://localhost:3306/posjava?useTimezone=true&serverTimezone=UTC";
-    private static String user = "root";
-    private static String password = "ewq1234r5";
+    private static String url = "jdbc:postgresql://localhost:5432/crmdb?autoReconnect=true";
+    private static String user = "postgres";
+    private static String password = "admin";
     private static Connection connection = null;
 
     static {
@@ -20,7 +20,7 @@ public class SingleConnection {
     private static void connectar() {
         try {
             if(connection == null) {
-                Class.forName("com.mysql.cj.jdbc.Driver");
+                Class.forName("org.postgresql.Driver");
                 connection = DriverManager.getConnection(url, user, password);
                 System.out.println("Conectou com sucesso!");
             }

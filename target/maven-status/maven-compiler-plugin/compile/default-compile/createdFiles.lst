@@ -1,2 +1,4 @@
 conexaojdbc\SingleConnection.class
+model\Userposjava.class
 br\com\willams\App.class
+dao\UserPosDAO.class

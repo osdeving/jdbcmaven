@@ -5,6 +5,9 @@ import model.Userposjava;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserPosDAO {
     private Connection connection;
@@ -34,6 +37,27 @@ public class UserPosDAO {
             }
             e.printStackTrace();
         }
+
+    }
+
+    public List<Userposjava> listar() throws  Exception {
+        List<Userposjava> list = new ArrayList<Userposjava>();
+
+        String sql = "select * from userposjava";
+
+        PreparedStatement select = connection.prepareStatement(sql);
+        ResultSet result = select.executeQuery();
+
+        while(result.next()) {
+            Userposjava userposjava = new Userposjava();
+            userposjava.setId(result.getLong("id"));
+            userposjava.setNome(result.getString("nome"));
+            userposjava.setEmail(result.getString("email"));
+
+            list.add(userposjava);
+        }
+
+        return list;
 
     }
 }

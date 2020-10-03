@@ -13,9 +13,9 @@ public class TestaBancoJDBC {
         UserPosDAO userPosDAO = new UserPosDAO();
         Userposjava userposjava = new Userposjava();
 
-        userposjava.setId(7L);
         userposjava.setNome("Will numero sete");
         userposjava.setEmail("email-will@uol.com.br");
+
         userPosDAO.salvar(userposjava);
 
     }
@@ -31,6 +31,37 @@ public class TestaBancoJDBC {
                 System.out.println(userposjava);
                 System.out.println("---------------------------------------------------------------------------------");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void initBuscar() {
+        UserPosDAO dao = new UserPosDAO();
+
+        try {
+           Userposjava userposjava = dao.buscar(7L);
+
+            System.out.println(userposjava);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void initAtualizar() {
+        try {
+            UserPosDAO dao = new UserPosDAO();
+
+            Userposjava objBanco = dao.buscar(5L);
+
+            objBanco.setNome("Mudado com método atualizar");
+
+            dao.atualizar(objBanco);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

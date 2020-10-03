@@ -17,17 +17,13 @@ public class UserPosDAO {
     }
 
     public void salvar(Userposjava userposjava) {
-        String sql = "insert into userposjava(id, nome, email) values (?, ?, ?)";
+        String sql = "insert into userposjava(nome, email) values (?, ?)";
 
         try {
             PreparedStatement insert = connection.prepareStatement(sql);
-            insert.setLong(1, userposjava.getId());
-            insert.setString(2, userposjava.getNome());
-            insert.setString(3, userposjava.getEmail());
+            insert.setString(1, userposjava.getNome());
+            insert.setString(2, userposjava.getEmail());
             insert.execute();
-            // dando erro, não pode dar commit quando 'autocommit' está ativo
-            // TODO:
-            // pesquisar sobre autocommit
             connection.commit(); // salva no banco
         } catch(Exception e) {
             try {
@@ -59,5 +55,44 @@ public class UserPosDAO {
 
         return list;
 
+    }
+
+    public Userposjava buscar(Long id) throws  Exception {
+        Userposjava retorno = new Userposjava();
+
+        String sql = "select * from userposjava where id = " + id;
+
+        PreparedStatement select = connection.prepareStatement(sql);
+        ResultSet result = select.executeQuery();
+
+        while(result.next()) {
+            retorno.setId(result.getLong("id"));
+            retorno.setNome(result.getString("nome"));
+            retorno.setEmail(result.getString("email"));
+
+         }
+
+        return retorno;
+
+    }
+
+    public void atualizar(Userposjava userposjava) {
+        try {
+            String sql = "update userposjava set nome = ?  where id = " + userposjava.getId();
+            PreparedStatement update = connection.prepareStatement(sql);
+
+            update.setString(1, userposjava.getNome());
+            update.execute();
+
+            connection.commit();
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
+            e.printStackTrace();
+        }
     }
 }

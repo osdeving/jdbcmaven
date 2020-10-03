@@ -6,6 +6,7 @@ import model.Userposjava;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class UserPosDAO {
     }
 
     public List<Userposjava> listar() throws  Exception {
-        List<Userposjava> list = new ArrayList<Userposjava>();
+        List<Userposjava> list = new ArrayList<>();
 
         String sql = "select * from userposjava";
 
@@ -93,6 +94,22 @@ public class UserPosDAO {
             }
 
             e.printStackTrace();
+        }
+    }
+
+    public void deletar(Long id) {
+        try {
+            String sql = "delete from userposjava where id = " + id;
+            PreparedStatement delete = connection.prepareStatement(sql);
+            delete.execute();
+            connection.commit();
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
         }
     }
 }

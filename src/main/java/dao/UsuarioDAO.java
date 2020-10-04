@@ -1,12 +1,14 @@
 package dao;
 
 import conexaojdbc.SingleConnection;
+import model.BeanUserFone;
 import model.Telefone;
 import model.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,6 +83,35 @@ public class UsuarioDAO {
 
     }
 
+    public List<BeanUserFone> listarUserFone(Long idUser)  {
+        List<BeanUserFone> beanUserFones = new ArrayList<>();
+
+        String sql = "select nome, numero, email from telefone as fone ";
+        sql += " inner join usuario as usr ";
+        sql += "on fone.usuario = usr.id";
+        sql += " where usr.id = " + idUser;
+
+
+        try {
+            PreparedStatement select = connection.prepareStatement(sql);
+
+            ResultSet result = select.executeQuery();
+
+            while(result.next()) {
+                BeanUserFone beanUserFone = new BeanUserFone();
+                beanUserFone.setNome(result.getString("nome"));
+                beanUserFone.setNumero(result.getString("numero"));
+                beanUserFone.setEmail(result.getString("email"));
+
+                beanUserFones.add(beanUserFone);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return beanUserFones;
+    }
+
     public Usuario buscar(Long id) throws  Exception {
         Usuario retorno = new Usuario();
 
@@ -120,6 +151,8 @@ public class UsuarioDAO {
 
         }
     }
+
+
 
     public void deletar(Long id) {
         try {

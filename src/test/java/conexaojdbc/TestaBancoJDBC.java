@@ -1,6 +1,7 @@
 package conexaojdbc;
 
 import dao.UsuarioDAO;
+import model.BeanUserFone;
 import model.Telefone;
 import model.Usuario;
 import org.junit.Test;
@@ -90,8 +91,16 @@ public class TestaBancoJDBC {
 
         dao.salvarTelefone(telefone);
 
+    }
 
+    @Test
+    public void testeCarregaFoneUser() {
+        UsuarioDAO dao = new UsuarioDAO();
 
+        List<BeanUserFone> beanUserFones = dao.listarUserFone(9L);
 
+        for(BeanUserFone beanUserFone : beanUserFones) {
+            System.out.println(beanUserFone);
+        }
     }
 }

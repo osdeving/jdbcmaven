@@ -20,7 +20,7 @@ public class UsuarioDAO {
     }
 
     public void salvar(Usuario usuario) {
-        String sql = "insert into userposjava(nome, email) values (?, ?)";
+        String sql = "insert into usuario(nome, email) values (?, ?)";
 
         try {
             PreparedStatement insert = connection.prepareStatement(sql);
@@ -65,7 +65,7 @@ public class UsuarioDAO {
     public List<Usuario> listar() throws  Exception {
         List<Usuario> list = new ArrayList<>();
 
-        String sql = "select * from userposjava";
+        String sql = "select * from usuario";
 
         PreparedStatement select = connection.prepareStatement(sql);
         ResultSet result = select.executeQuery();
@@ -115,7 +115,7 @@ public class UsuarioDAO {
     public Usuario buscar(Long id) throws  Exception {
         Usuario retorno = new Usuario();
 
-        String sql = "select * from userposjava where id = " + id;
+        String sql = "select * from usuario where id = " + id;
 
         PreparedStatement select = connection.prepareStatement(sql);
         ResultSet result = select.executeQuery();
@@ -133,7 +133,7 @@ public class UsuarioDAO {
 
     public void atualizar(Usuario usuario) {
         try {
-            String sql = "update userposjava set nome = ?  where id = " + usuario.getId();
+            String sql = "update usuario set nome = ?  where id = " + usuario.getId();
             PreparedStatement update = connection.prepareStatement(sql);
 
             update.setString(1, usuario.getNome());
@@ -156,12 +156,37 @@ public class UsuarioDAO {
 
     public void deletar(Long id) {
         try {
-            String sql = "delete from userposjava where id = " + id;
+            String sql = "delete from usuario where id = " + id;
             PreparedStatement delete = connection.prepareStatement(sql);
-            delete.execute();
+            delete.executeUpdate();
             connection.commit();
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
+        }
+    }
+
+    public void deletarTelefonesPorUsuario(Long idUser) {
+        try {
+            String sqlFone = "delete from telefone where usuario = " + idUser;
+            String sqlUser = "delete from usuario where id = " + idUser;
+
+            PreparedStatement delete = connection.prepareStatement(sqlFone);
+            delete.executeUpdate();
+            connection.commit();
+
+            delete = connection.prepareStatement(sqlUser);
+            delete.executeUpdate();
+            connection.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
             try {
                 connection.rollback();
             } catch (Exception e1) {

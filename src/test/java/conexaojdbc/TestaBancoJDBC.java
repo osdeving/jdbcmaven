@@ -103,4 +103,19 @@ public class TestaBancoJDBC {
             System.out.println(beanUserFone);
         }
     }
+
+    @Test
+    public void testeDeleteUserFone() {
+
+
+        try {
+            UsuarioDAO dao = new UsuarioDAO();
+            dao.deletarTelefonesPorUsuario(4L);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }

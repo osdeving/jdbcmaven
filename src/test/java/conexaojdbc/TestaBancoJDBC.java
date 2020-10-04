@@ -1,7 +1,8 @@
 package conexaojdbc;
 
-import dao.UserPosDAO;
-import model.Userposjava;
+import dao.UsuarioDAO;
+import model.Telefone;
+import model.Usuario;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,25 +11,25 @@ public class TestaBancoJDBC {
 
     @Test
     public void initBanco() {
-        UserPosDAO userPosDAO = new UserPosDAO();
-        Userposjava userposjava = new Userposjava();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        Usuario usuario = new Usuario();
 
-        userposjava.setNome("Will numero sete");
-        userposjava.setEmail("email-will@uol.com.br");
+        usuario.setNome("Will numero sete");
+        usuario.setEmail("email-will@uol.com.br");
 
-        userPosDAO.salvar(userposjava);
+        usuarioDAO.salvar(usuario);
 
     }
 
     @Test
     public void initListar() {
-        UserPosDAO dao = new UserPosDAO();
+        UsuarioDAO dao = new UsuarioDAO();
 
         try {
-            List<Userposjava> list = dao.listar();
+            List<Usuario> list = dao.listar();
 
-            for(Userposjava userposjava : list) {
-                System.out.println(userposjava);
+            for(Usuario usuario : list) {
+                System.out.println(usuario);
                 System.out.println("---------------------------------------------------------------------------------");
             }
         } catch (Exception e) {
@@ -39,12 +40,12 @@ public class TestaBancoJDBC {
 
     @Test
     public void initBuscar() {
-        UserPosDAO dao = new UserPosDAO();
+        UsuarioDAO dao = new UsuarioDAO();
 
         try {
-           Userposjava userposjava = dao.buscar(7L);
+           Usuario usuario = dao.buscar(7L);
 
-            System.out.println(userposjava);
+            System.out.println(usuario);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,9 +55,9 @@ public class TestaBancoJDBC {
     @Test
     public void initAtualizar() {
         try {
-            UserPosDAO dao = new UserPosDAO();
+            UsuarioDAO dao = new UsuarioDAO();
 
-            Userposjava objBanco = dao.buscar(5L);
+            Usuario objBanco = dao.buscar(5L);
 
             objBanco.setNome("Mudado com método atualizar");
 
@@ -71,10 +72,26 @@ public class TestaBancoJDBC {
     @Test
     public void initDeletar() {
         try {
-            UserPosDAO dao = new UserPosDAO();
+            UsuarioDAO dao = new UsuarioDAO();
             dao.deletar(7L);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testeInsertTelefone() {
+        Telefone telefone = new Telefone();
+        telefone.setNumero("(18) 4445-4545");
+        telefone.setTipo("casa");
+        telefone.setUsuario(4L);
+
+        UsuarioDAO dao = new UsuarioDAO();
+
+        dao.salvarTelefone(telefone);
+
+
+
+
     }
 }

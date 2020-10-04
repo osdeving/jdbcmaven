@@ -1,6 +1,6 @@
 package model;
 
-public class Userposjava {
+public class Usuario {
     private Long id;
     private String nome;
 

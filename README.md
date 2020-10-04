@@ -7,6 +7,5 @@
 - CRUD (Create, read, update and delete) 
 - SQL (DDL e MDL)
 - PostgreSQL
-
-
+- Maven
 

@@ -19,4 +19,4 @@
 - Versionamento de código básico (local e remoto)
 
 ##### Agradecimentos
-Alex do JDev Treinamentos do CURSO DE JAVA FULL-STACK
+Alex do JDev Treinamentos do CURSO DE JAVA FULLSTACK
